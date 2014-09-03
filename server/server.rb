@@ -1,12 +1,15 @@
 require 'sinatra'
 require 'json'
+require 'sinatra/cross_origin'
 
+enable :cross_origin
 get '/show' do
   user = {
     id: 1,
     name: "ryohei hoshi",
     age: 22
   }
+  cross_origin
   user.to_json
 end
 
