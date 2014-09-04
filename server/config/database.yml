@@ -1,0 +1,7 @@
+development:
+  adapter: mysql2
+  database: campuspace
+  host: localhost
+  username: 'h0shim0'
+  password: 'ryohei'
+  encoding: utf8
