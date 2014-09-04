@@ -1,0 +1,49 @@
+html, body {  
+    height: 100%;
+    background-color: #000000;
+}
+#form{
+    width: 400px;
+    margin: 30px auto;
+    padding: 20px;
+    border: 1px solid #555;
+    background-color: rgba(0,127,127,10);
+    }
+
+.header{
+    color: #000000;
+    text-align: center;
+    font-size: 30px;
+    text-shadow: 20px 10px 7px #666;
+}
+ 
+form p{
+    font-size: 14px;
+    }
+ 
+.form-title{
+    text-align: center;
+    }
+ 
+.mail{
+    margin-bottom: 20px;
+    float:left;
+    }
+.pass{
+    float: right;
+}
+
+.check{
+    clear:both; 
+}
+ 
+input[type=&quot;email&quot;],
+input[type=&quot;password&quot;] {
+    width: 300px;
+    padding: 4px;
+    font-size: 14px;
+    }
+     
+.submit{
+    text-align: right;
+    }
