@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <!-- <meta name="viewport" content="minimal-ui"> -->
     <title>All_eventpage</title>
     <link rel="stylesheet" type="text/css" href="../css/eventpage_style.css" />
     <link href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
@@ -12,13 +13,31 @@
     <script src="../js/TrackballControls.js"></script>
     <script src="../js/CSS3DRenderer.js"></script>
     <script src="../js/all_eventpage.js"></script>
+    <script src="../js/modal.js" type="text/javascript"></script>
   </head>
   <body>
     <div id="container"></div>
     <div id="menu">
-      <button id="left">left</button>
-      <button id="sphere">my page</button>
-      <button id="helix">right</button>
+      <button><a class="modalLink" href="#">Create Event</a></button>
+      <div class="modal" style="">
+        <div class="form-title">イベント登録</div>
+        <form action="post">
+          <div class="new_name">Name<br>
+            <div  ><input type="textbox" name="name" /></div></div>
+          <div class="title">Title<br>
+            <div ><input type="textbox" name="title" /></div></div>
+          <div class="deadline">Deadline<br>
+            <div  ><input type="textbox" name="deadline" /></div></div>
+          <div class="contents">Contents<br>
+            <div  ><input type="textbox" name="contents" /></div></div>
+
+          <div class="submit"><input type="submit" value="Submit" /></div>
+        </form>
+        <a href="#" class="closeBtn" style="text-align:right">Close</a>
+      </div>
+
+      <button id="sphere">My page</button>
+      <button id="helix">All univercities</button>
     </div>
   </body>
 </html>

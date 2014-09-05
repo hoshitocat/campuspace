@@ -133,42 +133,8 @@
 
     var button_l = document.getElementById( 'left' );
     var j=1;
-    button_l.addEventListener( 'click', function ( event ) {
-
-      camera.position.x = 3000*Math.sin(360/objects.length-j+30);
-      camera.position.y = 0;
-      camera.position.z = 3000*Math.cos(360/objects.length-j+30);
-      j++;
-      if(j==6){
-        j=1.5;
-      }
-
-    }, false );
-
-    /*
-       var button_r = document.getElementById( 'right' );
-       var j=1;
-       button_r.addEventListener( 'click', function ( event ) {
-
-       camera.position.x = 3000*Math.sin(360/objects.length+j+30);
-       camera.position.y = 0;
-       camera.position.z = 3000*Math.cos(360/objects.length+j+30);
-       j++;
-       if(j==6){
-       j=1.5;
-       }
-
-       }, false );
-       */
-
-
-
-
 
     transform( targets.helix, 2000 );
-
-    //
-
     window.addEventListener( 'resize', onWindowResize, false );
   }
 
@@ -233,7 +199,7 @@
 
   (function() {
     $.ajax({
-      url: 'http://127.0.0.1:4567/getEvents.json',
+      url: 'http://localhost:4567/getEvents.json',
       type: 'GET',
       cache: true,
       datatype: 'json',
@@ -256,3 +222,22 @@
   window.event_init = init;
   window.event_animate = animate;
 })();
+
+$(document).ready(function(){
+  $('.modalLink').modal({
+    trigger: '.modalLink',
+    olay:'div.overlay',
+    modals:'div.modal',
+    animationEffect: 'slidedown',
+    animationSpeed: 100,
+    moveModalSpeed: 'slow',
+    background: '00c2ff',
+    opacity: 0.8,
+    openOnLoad: false,
+    docClose: true,
+    closeByEscape: true,
+    moveOnScroll: true,
+    resizeWindow: true,
+    close:'.closeBtn'
+  });
+});
