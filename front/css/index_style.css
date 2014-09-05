@@ -11,10 +11,10 @@ html, body {
     }
 
 .header{
-    color: #000000;
+    color: #FFFFFF;
     text-align: center;
     font-size: 30px;
-    text-shadow: 20px 10px 7px #666;
+    text-shadow: 15px 10px 5px #808080;
 }
  
 form p{
