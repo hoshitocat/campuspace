@@ -1,133 +1,156 @@
-			html, body {
-				height: 100%;
-			}
+html, body {
+  height: 100%;
+}
 
-			body {
-				background-color: #000000;
-				margin: 0;
-				font-family: Helvetica, sans-serif;
-				overflow: hidden;
-			}
+body {
+  background-color: #000000;
+  margin: 0;
+  font-family: Helvetica, sans-serif;
+  overflow: hidden;
+}
 
-			a {
-				color: #ffffff;
-			}
+a {
+  color: #ffffff;
+}
 
-			#info {
-				position: absolute;
-				width: 100%;
-				color: #ffffff;
-				padding: 5px;
-				font-family: Monospace;
-				font-size: 13px;
-				font-weight: bold;
-				text-align: center;
-				z-index: 1;
-			}
+#info {
+  position: absolute;
+  width: 100%;
+  color: #ffffff;
+  padding: 5px;
+  font-family: Monospace;
+  font-size: 13px;
+  font-weight: bold;
+  text-align: center;
+  z-index: 1;
+}
 
-			#menu {
-				position: absolute;
-				bottom: 20px;
-				width: 100%;
-				text-align: center;
-			}
+#menu {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  text-align: center;
+}
 
-			.element {
-				width: 810px;
-				height: 600px;
-				box-shadow: 0px 0px 12px rgba(0,255,255,0.5);
-				border: 1px solid rgba(127,255,255,0.25);
-				text-align: center;
-				cursor: default;
-			}
+.element {
+  width: 810px;
+  height: 600px;
+  box-shadow: 0px 0px 12px rgba(0,255,255,0.5);
+  border: 1px solid rgba(127,255,255,0.25);
+  text-align: center;
+  cursor: default;
+}
 
-			.element:hover {
-				box-shadow: 0px 0px 12px rgba(0,255,255,0.75);
-				border: 1px solid rgba(127,255,255,0.75);
-			}
-
-				
-				.element .image {
-					width: 270px;
-					height: 200px;
-					position: absolute;
-					top: 20px;
-					left:20px;
-
-					background-image:url(“../images/aoyama.jpg”);
-					color: rgba(127,255,255,0.75);
-				}
+.element:hover {
+  box-shadow: 0px 0px 12px rgba(0,255,255,0.75);
+  border: 1px solid rgba(127,255,255,0.75);
+}
 
 
-				.element .symbol {
-					position: absolute;
-					top: 700px;
-					left: 0px;
-					right: 0px;
-					font-size: 60px;
-					font-weight: bold;
-					color: rgba(255,255,255,0.75);
-					text-shadow: 0 0 10px rgba(0,255,255,0.95);
-				}
-				
+.element .image {
+  width: 270px;
+  height: 200px;
+  position: absolute;
+  top: 20px;
+  left:20px;
 
-				.element .date {
-					position: absolute;
-					top: 15%;
-					right: 20%;
-					font-size: 50px;
-					font-weight: bold;
-					color: rgba(255,255,255,0.75);
-					text-shadow: 0 0 10px rgba(0,255,255,0.95);
-				}
+  /* background-image:url(“../images/aoyama.jpg”); */
+  color: rgba(127,255,255,0.75);
+}
 
-				.element .comments {
-					width: 770px;
-					height: 240px;
-					position: absolute;
-					top: 40%;
-					right: 20px;
-					font-size: 20px;
-					color: rgba(255,255,255,0.75);
-					text-shadow: 0 0 10px rgba(0,255,255,0.95);
-					border-style:solid;
-				}
 
-				.element .add {
-					width: 770px;
-					height: 240px;
-					position: absolute;
-					top: 40%;
-					right: 20px;
-					font-size: 20px;
-					color: rgba(255,255,255,0.75);
-					text-shadow: 0 0 10px rgba(0,255,255,0.95);
-					border-style:solid;
-				}
+.element .symbol {
+  position: absolute;
+  top: 625px;
+  left: 0px;
+  right: 0px;
+  font-size: 60px;
+  font-weight: bold;
+  color: rgba(255,255,255,0.75);
+  text-shadow: 0 0 10px rgba(0,255,255,0.95);
+}
+
+
+.element .name_date_area {
+  position: absolute;
+  top: 10%;
+  left: 40%;
+  font-size: 50px;
+  font-weight: bold;
+  color: rgba(255,255,255,0.75);
+  text-shadow: 0 0 10px rgba(0,255,255,0.95);
+}
+
+.element .name_date_area .name {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.element .name_date_area .date {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.element .comments {
+  width: 770px;
+  height: 336px;
+  position: absolute;
+  top: 40%;
+  right: 20px;
+  font-size: 20px;
+  color: rgba(255,255,255,0.75);
+  text-shadow: 0 0 10px rgba(0,255,255,0.95);
+  border-style:solid;
+}
+
+.element .comments .event_name {
+  font-size: 60px;
+  margin-bottom: 20px;
+  color: yellow;
+  font-weight: bold;
+}
+
+.element .comments .event_content {
+  font-size: 40px;
+  margin-top: 0px;
+  color: white;
+}
+
+.element .add {
+  width: 770px;
+  height: 240px;
+  position: absolute;
+  top: 40%;
+  right: 20px;
+  font-size: 20px;
+  color: rgba(255,255,255,0.75);
+  text-shadow: 0 0 10px rgba(0,255,255,0.95);
+  border-style:solid;
+}
 
 /*
-				.element .details {
-					position: absolute;
-					bottom: 15px;
-					left: 0px;
-					right: 0px;
-					font-size: 12px;
-					color: rgba(127,255,255,0.75);
-				}
-				*/
+.element .details {
+position: absolute;
+bottom: 15px;
+left: 0px;
+right: 0px;
+font-size: 12px;
+color: rgba(127,255,255,0.75);
+}
+ */
 
-			button {
-				color: rgba(127,255,255,0.75);
-				background: transparent;
-				outline: 1px solid rgba(127,255,255,0.75);
-				border: 0px;
-				padding: 5px 10px;
-				cursor: pointer;
-			}
-			button:hover {
-				background-color: rgba(0,255,255,0.5);
-			}
-			button:active {
-				color: #000000;
-				background-color: rgba(0,255,255,0.75);
-			}
+  button {
+    color: rgba(127,255,255,0.75);
+    background: transparent;
+    outline: 1px solid rgba(127,255,255,0.75);
+    border: 0px;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: rgba(0,255,255,0.5);
+  }
+  button:active {
+    color: #000000;
+    background-color: rgba(0,255,255,0.75);
+  }
