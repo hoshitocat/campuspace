@@ -199,7 +199,7 @@
 
   (function() {
     $.ajax({
-      url: 'http://172.30.16.197:4567/getEvents.json',
+      url: 'http://localhost:4567/getEvents.json',
       type: 'GET',
       cache: true,
       datatype: 'json',
