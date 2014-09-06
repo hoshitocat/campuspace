@@ -1,29 +1,62 @@
 # config:utf-8
-require 'mysql2'
-require 'active_record'
 require 'sinatra'
+require 'sinatra/base'
 require 'json'
 require 'sinatra/cross_origin'
 
-ActiveRecord::Base.configurations = YAML.load_file('config/database.yml')
-ActiveRecord::Base.establish_connection(:development)
-use ActiveRecord::ConnectionAdapters::ConnectionManagement
+# load models
+require_relative 'models/user'
+require_relative 'models/event'
+require_relative 'models/university'
 
+class Server < Sinatra::Base
+  use ActiveRecord::ConnectionAdapters::ConnectionManagement
 
-class User < ActiveRecord::Base
-  belongs_to :university
-  has_many :events
+  enable :cross_origin, :sessions
+  set :session_secret, "My session secret"
 end
 
-class Event < ActiveRecord::Base
-  belongs_to :user
+get '/' do
+  "Hello, World"
 end
 
-class University < ActiveRecord::Base
-  has_many :users
+post '/sign_up' do
+  # session[:user_id] ||= nil 
+  # if session[:user_id]
+  #   redirect '/log_out' #logout form
+  # end 
+  user = User.new
+  user["name"] = params["name"]
+  user["mail"] = params["mail"]
+  user["sex"] = params["sex"]
+  user["university_id"] = "1"
+  passwords = user.encrypt_password(params["password"])
+  user["password"] = passwords[0]
+  user["password_salt"] = passwords[1]
+  user["created_at"] = Time.now
+  user["update_at"] = Time.now
+  if user.save!
+    session[:user_id] = user["user_id"]
+    redirect "https://dl.dropboxusercontent.com/u/54211252/campuspace/front/html/all_eventpage.html"
+  else
+    redirect "https://dl.dropboxusercontent.com/u/54211252/campuspace/front/html/index.html"
+  end
+end 
+
+post '/log_in' do
+  if session[:user_id]
+    redirect "https://dl.dropboxusercontent.com/u/54211252/campuspace/front/html/all_eventpage.html"
+  end
+
+  user = User.authenticate(params["mail"], params["password"])
+  if user
+    session[:user_id] = user["id"]
+    redirect "https://dl.dropboxusercontent.com/u/54211252/campuspace/front/html/all_eventpage.html"
+  else
+    redirect "https://dl.dropboxusercontent.com/u/54211252/campuspace/front/html/index.html"
+  end
 end
 
-enable :cross_origin
 get '/users.json' do
   users = User.all
   content_type :json, :charset => 'utf-8'
@@ -31,17 +64,17 @@ get '/users.json' do
   users.to_json
 end
 
-enable :cross_origin
 get '/getEvents.json' do
   events = []
   content_type :json, :charset => 'utf-8'
-  eventtables = Event.select('id', 'name', 'content', 'deadline', 'user_id')
+  eventtables = Event.select('id', 'name', 'content', 'deadline', 'category_num', 'admin_user_id')
   eventtables.each do |eventtable|
-    user = User.find(eventtable["user_id"])
+    user = User.find(eventtable["admin_user_id"])
     university = University.find(user["university_id"])
     event = {"id" => eventtable["id"], "name" => eventtable["name"], 
              "content" => eventtable["content"],
              "deadline" => eventtable["deadline"].strftime("%m月%d日 %H時%M分"),
+             "category_num" => eventtable["category_num"],
              "user_name" => user["name"],
              "university_name" => university["name"],
              "university_image" => university["image"]
@@ -50,16 +83,6 @@ get '/getEvents.json' do
   end
   cross_origin
   events.to_json
-end
-
-post '/edit' do
-  body = request.body.read
-
-  if body == ''
-    status 400
-  else
-    body.to_json
-  end
 end
 
 after do
