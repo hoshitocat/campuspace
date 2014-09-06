@@ -7,6 +7,8 @@ require 'sinatra/cross_origin'
 
 ActiveRecord::Base.configurations = YAML.load_file('config/database.yml')
 ActiveRecord::Base.establish_connection(:development)
+use ActiveRecord::ConnectionAdapters::ConnectionManagement
+
 
 class User < ActiveRecord::Base
   belongs_to :university
@@ -60,3 +62,6 @@ post '/edit' do
   end
 end
 
+after do
+  ActiveRecord::Base.connection.close
+end
