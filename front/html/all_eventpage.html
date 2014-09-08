@@ -21,17 +21,29 @@
       <button class="modalLink" href="#">Create Event</button>
       <div class="modal" style="">
         <div class="form-title">イベント登録</div>
-        <form action="post">
-          <div class="new_name">Name<br>
-            <div><input type="textbox" name="name" /></div></div>
-          <div class="title">Title<br>
-            <div><input type="textbox" name="title" /></div></div>
-          <div class="deadline">Deadline<br>
-            <div><input type="textbox" name="deadline" /></div></div>
-          <div class="contents">Contents<br>
-            <div><input type="textbox" name="contents" /></div></div>
-
-          <div class="submit"><input type="submit" value="Submit" /></div>
+        <form id="new-event">
+          <div class="title">
+            <span>Title : </span>
+            <input type="text" name="title">
+          </div>
+          <div class="contents">
+            <span>Contents : </span>
+            <textarea name="content"></textarea>
+          </div>
+          <div class="deadline">
+            <span>Deadline : </span>
+            <input type="datetime-local" name="deadline" step="600">
+          </div>
+          <div class="category">
+            <span>Category : </span>
+            <select name="category">
+              <option value="1">遊び</option>
+              <option value="2">スポーツ</option>
+              <option value="3">食事</option>
+              <option value="4">勉強</option>
+            </select>
+          </div>
+          <button type="button" onclick="new_event()">New Event</button>
         </form>
         <a href="#" class="closeBtn" style="text-align:right">Close</a>
       </div>

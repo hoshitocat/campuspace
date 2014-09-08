@@ -219,8 +219,46 @@
     });
   })();
 
+  function new_event() {
+    childs = document.getElementById("new-event").childNodes;
+    datas = [];
+    for (var i = 0; i < childs.length; i++) {
+      if (childs[i].tagName == "DIV") {
+        if (childs[i].childNodes[3].tagName == "SELECT") {
+          var select = childs[i].childNodes[3];
+          for (var j = 0; j < select.childNodes.length; j++) {
+            if (select.childNodes[j].tagName == "OPTION") {
+              var option = select.childNodes[j];
+              if (option.selected) {
+                datas.push(option.value);
+              }
+            }
+          }
+        }
+        else {
+          datas.push(childs[i].childNodes[3].value);
+        }
+      }
+    }
+    console.log(datas);
+    $.ajax({
+      url: 'http://localhost:4567/newEvent',
+      type: 'POST',
+      contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+      cache: true,
+      datatype: 'json',
+      data: {title:datas[0], contents:datas[1], deadline:datas[2], category:datas[3]},
+      success: function(data) {
+        console.log("***ajax connection success***");
+      }, error: function() {
+        console.log("error");
+      }
+    });
+  }
+
   window.event_init = init;
   window.event_animate = animate;
+  window.new_event = new_event;
 })();
 
 $(document).ready(function(){

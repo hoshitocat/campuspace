@@ -17,7 +17,11 @@ class Server < Sinatra::Base
 end
 
 get '/' do
-  "Hello, World"
+  if session[:user_id]
+    redirect "https://dl.dropboxusercontent.com/u/54211252/campuspace/front/html/all_eventpage.html"
+  else
+    redirect "https://dl.dropboxusercontent.com/u/54211252/campuspace/front/html/index.html?user_id=0"
+  end
 end
 
 post '/sign_up' do
@@ -51,6 +55,7 @@ post '/log_in' do
   user = User.authenticate(params["mail"], params["password"])
   if user
     session[:user_id] = user["id"]
+    p session[:user_id]
     redirect "https://dl.dropboxusercontent.com/u/54211252/campuspace/front/html/all_eventpage.html"
   else
     redirect "https://dl.dropboxusercontent.com/u/54211252/campuspace/front/html/index.html"
@@ -83,6 +88,35 @@ get '/getEvents.json' do
   end
   cross_origin
   events.to_json
+end
+
+post '/newEvent' do
+  new_event = []
+  event = Event.new
+  if params["title"].present?
+    event["name"] = params["title"]
+  else
+    event["name"] = "test"
+  end
+  event["content"] = params["contents"]
+  if params["deadline"].present?
+    event["deadline"] = params["deadline"].to_datetime
+  else
+    event["deadline"] = Time.now + 1800
+  end
+  event["category_num"] = params["category"]
+  event["admin_user_id"] = 1
+  event["content"] = params["contents"]
+  event["created_at"] = Time.now
+  event["update_at"] = Time.now
+
+  if event.save!
+    cross_origin
+    new_event.unshift("success")
+  else
+    cross_origin
+    new_event.unshift("error")
+  end
 end
 
 after do
