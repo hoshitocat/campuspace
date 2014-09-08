@@ -37,7 +37,7 @@
 
     <div id="form">
       <div class="form-title">新規会員登録</div>
-      <form action="http://127.0.0.1:4567/sign_up" method="post">
+      <form action="http://127.0.0.1:4567/sign_up" method="post" enctype="multipart/form-data">
         <div class="new_name">
           <span>Name</span>
           <div>
@@ -64,12 +64,12 @@
               <option value="1">女</option>
             </select>
           </div>
-          <div class="new_image">
-            <span>Image</span>
-            <div>
-              <input type="file" name="image">
-            </div>
-          </div>
+          <!-- <div class="new_image">              -->
+          <!--   <span>Image</span>                 -->
+          <!--   <div>                              -->
+          <!--     <input type="file" name="image"> -->
+          <!--   </div>                             -->
+          <!-- </div>                               -->
           <div class="submit">
             <input type="submit" value="SignUp">
           </div>

@@ -5,6 +5,12 @@
   var targets = { table: [], helix: [] };
 
   function init(data) {
+    var container = document.getElementById("container");
+    for (var i = container.childNodes.length - 1; i >= 0; i--) {
+      container.removeChild(container.childNodes[i]);
+    }
+    objects = [];
+    targets = { table: [], helix: [] };
     camera = new THREE.PerspectiveCamera(
       40, window.innerWidth / window.innerHeight, 1, 10000 );
     camera.position.z = 3000;
@@ -23,7 +29,7 @@
           // image.textContent = (i/5) + 1;
           // image.setAttribute("src", table[i+3]);
           if (value["university_image"] != null) {
-            image.setAttribute("src", "../image/" + value["university_image"]);
+            image.setAttribute("src", "../../public/image/" + value["university_image"]);
           }
           else {
             image.alt = "画像未登録"
@@ -102,7 +108,7 @@
     renderer = new THREE.CSS3DRenderer();
     renderer.setSize( window.innerWidth, window.innerHeight );
     renderer.domElement.style.position = 'absolute';
-    document.getElementById( 'container' ).appendChild( renderer.domElement );
+    document.getElementById('container').appendChild(renderer.domElement);
 
     //
 
@@ -197,9 +203,22 @@
     renderer.render( scene, camera );
   }
 
-  (function() {
+  var getEvents = function() {
+    var reqDatas = window.location.search.substr(1).split("&");
+    var user_id = 0;
+    for (var i = 0; i < reqDatas.length; i++) {
+      var reqData = reqDatas[i].split("=");
+      if (reqData[0] == "id") {
+        user_id = reqData[1];
+        break;
+      }
+    }
+
+    if (user_id == 0) {
+      window.location = "https://dl.dropboxusercontent.com/u/54211252/campuspace/front/html/index.html?user_id=0"
+    }
     $.ajax({
-      url: 'http://localhost:4567/getEvents.json',
+      url: "http://localhost:4567/getEvents.json?id=" + user_id,
       type: 'GET',
       cache: true,
       datatype: 'json',
@@ -209,7 +228,7 @@
         animate();
         // $.each(data, function(arr_key, hash) {
         //   $.each(hash, function(hash_key, value) {
-        //     console.log(hash_key + ": " + value);
+            // console.log(hash_key + ": " + value);
         //   });
         // });
       },
@@ -217,9 +236,19 @@
         console.log("error");
       }
     });
-  })();
+  }
 
   function new_event() {
+    var reqDatas = window.location.search.substr(1).split("&");
+    var user_id = 0;
+    for (var i = 0; i < reqDatas.length; i++) {
+      var reqData = reqDatas[i].split("=");
+      if (reqData[0] == "id") {
+        user_id = reqData[1];
+        break;
+      }
+    }
+
     childs = document.getElementById("new-event").childNodes;
     datas = [];
     for (var i = 0; i < childs.length; i++) {
@@ -240,9 +269,9 @@
         }
       }
     }
-    console.log(datas);
+    // console.log(datas);
     $.ajax({
-      url: 'http://localhost:4567/newEvent',
+      url: 'http://localhost:4567/newEvent?id=' + user_id,
       type: 'POST',
       contentType: "application/x-www-form-urlencoded; charset=UTF-8",
       cache: true,
@@ -254,11 +283,13 @@
         console.log("error");
       }
     });
+    getEvents();
   }
 
   window.event_init = init;
   window.event_animate = animate;
   window.new_event = new_event;
+  getEvents();
 })();
 
 $(document).ready(function(){
