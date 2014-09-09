@@ -1,49 +1,32 @@
 html, body {  
-    height: 100%;
-    background-color: #000000;
-}
-#form{
-    width: 400px;
-    margin: 30px auto;
-    padding: 20px;
-    border: 1px solid #555;
-    background-color: rgba(0,127,127,10);
-    }
-
-.header{
-    color: #FFFFFF;
-    text-align: center;
-    font-size: 30px;
-    text-shadow: 15px 10px 5px #808080;
-}
- 
-form p{
-    font-size: 14px;
-    }
- 
-.form-title{
-    text-align: center;
-    }
- 
-.mail{
-    margin-bottom: 20px;
-    float:left;
-    }
-.pass{
-    float: right;
+  height: 100%;
+  background-color: ##f8f4e6;
 }
 
-.check{
-    clear:both; 
+.header div {
+  padding-top: 45px;
+  padding-bottom: 45px;
+  color: #75594a;
+  font-family: cursive;
+  text-align: center;
+  font-size: 30px;
+  text-shadow: 15px 10px 5px #808080;
 }
- 
-input[type=&quot;email&quot;],
-input[type=&quot;password&quot;] {
-    width: 300px;
-    padding: 4px;
-    font-size: 14px;
-    }
-     
-.submit{
-    text-align: right;
-    }
+
+.form-signin p {
+  margin-top:20px;
+  text-align: right;
+}
+
+.name-form {
+  margin-bottom: 10px;
+}
+
+.password-form {
+  margin-top: 10px;
+}
+
+.btn {
+  background-color: #75594a;
+  border-color: #000000;
+}

@@ -28,7 +28,7 @@ post '/sign_up' do
   user = User.new
   mail = params["mail"]
   mail = mail.split("@")[1]
-  university_id = University.where(domain: mail).first["id"]
+  university_id = University.where(domain: mail)["id"]
 
   if params["image"]
     image_path = "../public/image/#{params["image"][:filename]}"
@@ -74,11 +74,13 @@ post '/log_in' do
   end
 end
 
-get '/users.json' do
-  users = User.all
+get '/user.json' do
+  user = User.find(params["id"])
+  university = University.find(user["university_id"])
+  user_info = {"name" => user["name"], "university" => university["name"], "university_image" => university["image"]}
   content_type :json, :charset => 'utf-8'
   cross_origin
-  users.to_json
+  user_info.to_json
 end
 
 get '/getEvents.json' do
@@ -151,6 +153,22 @@ post '/newEvent' do
     cross_origin
     new_event.unshift("error")
   end
+end
+
+get '/getUniversities.json' do
+  content_type :json, :charset => 'utf-8'
+
+  universities = []
+  universities_info = University.all.select("id", "name", "image");
+  universities_info.each do |info|
+    university = {"id" => info["id"],
+             "name" => info["name"],
+             "image" => info["image"]}
+    universities.push(university)
+  end
+
+  cross_origin
+  universities.to_json
 end
 
 after do

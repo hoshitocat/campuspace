@@ -3,6 +3,7 @@
   var controls;
   var objects = [];
   var targets = { table: [], helix: [] };
+  var user_id = 0;
 
   function init(data) {
     var container = document.getElementById("container");
@@ -108,6 +109,7 @@
     renderer = new THREE.CSS3DRenderer();
     renderer.setSize( window.innerWidth, window.innerHeight );
     renderer.domElement.style.position = 'absolute';
+    renderer.className = "renderer";
     document.getElementById('container').appendChild(renderer.domElement);
 
     //
@@ -205,7 +207,6 @@
 
   var getEvents = function() {
     var reqDatas = window.location.search.substr(1).split("&");
-    var user_id = 0;
     for (var i = 0; i < reqDatas.length; i++) {
       var reqData = reqDatas[i].split("=");
       if (reqData[0] == "id") {
@@ -218,7 +219,7 @@
       window.location = "https://dl.dropboxusercontent.com/u/54211252/campuspace/front/html/index.html?user_id=0"
     }
     $.ajax({
-      url: "http://localhost:4567/getEvents.json?id=" + user_id,
+      url: "http://6e227a95.ngrok.com/getEvents.json?id=" + user_id,
       type: 'GET',
       cache: true,
       datatype: 'json',
@@ -240,7 +241,6 @@
 
   function new_event() {
     var reqDatas = window.location.search.substr(1).split("&");
-    var user_id = 0;
     for (var i = 0; i < reqDatas.length; i++) {
       var reqData = reqDatas[i].split("=");
       if (reqData[0] == "id") {
@@ -271,7 +271,7 @@
     }
     // console.log(datas);
     $.ajax({
-      url: 'http://localhost:4567/newEvent?id=' + user_id,
+      url: 'http://6e227a95.ngrok.com/newEvent?id=' + user_id,
       type: 'POST',
       contentType: "application/x-www-form-urlencoded; charset=UTF-8",
       cache: true,
@@ -286,9 +286,47 @@
     getEvents();
   }
 
+  (function() {
+    var reqDatas = window.location.search.substr(1).split("&");
+    var user_id = 0;
+    for (var i = 0; i < reqDatas.length; i++) {
+      var reqData = reqDatas[i].split("=");
+      if (reqData[0] == "id") {
+        user_id = reqData[1];
+        break;
+      }
+    }
+    $.ajax({
+      url: 'http://6e227a95.ngrok.com/user.json?id=' + user_id,
+      type: 'GET',
+      contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+      cache: true,
+      datatype: 'json',
+      success: function(data) {
+        console.log("***ajax connection success***");
+        var header = document.getElementById("header");
+        var name = document.createElement('p');
+        var img = document.createElement('img');
+        name.className = 'my-name';
+        img.className = 'my-university-image';
+        img.setAttribute("src", "../../public/image/" + data["university_image"]);
+        name.textContent = "こんにちは、" + data["name"] + "さん";
+        header.appendChild(img);
+        header.appendChild(name);
+      }, error: function() {
+        console.log("error");
+      }
+    });
+  })();
+
+  function all_universities() {
+    window.location = "./all_universities.html?user_id=" + user_id;
+  }
+
   window.event_init = init;
   window.event_animate = animate;
   window.new_event = new_event;
+  window.all_universities = all_universities;
   getEvents();
 })();
 

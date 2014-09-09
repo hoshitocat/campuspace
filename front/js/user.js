@@ -16,7 +16,7 @@
     if (result.length != 0 && result["user_id"]) {
     }
     else {
-      window.location = "http://localhost:4567";
+      window.location = "http://37a82cbb.ngrok.com";
     }
   }
 
