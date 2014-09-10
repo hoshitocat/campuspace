@@ -22,59 +22,60 @@
 
       var element = document.createElement( 'div' );
       element.className = 'element';
+      element.setAttribute("id", "univ" + value["category_num"]);
       element.style.backgroundColor = 'rgba(0,127,127,' +
-          ( Math.random() * 0.5 + 0.25 ) + ')';
+        ( Math.random() * 0.5 + 0.25 ) + ')';
 
-          var image = document.createElement('img');
-          image.className = 'image';
-          // image.textContent = (i/5) + 1;
-          // image.setAttribute("src", table[i+3]);
-          if (value["university_image"] != null) {
-            image.setAttribute("src", "../../public/image/" + value["university_image"]);
-          }
-          else {
-            image.alt = "画像未登録"
-          }
-          element.appendChild( image );
+        var image = document.createElement('img');
+        image.className = 'image';
+        // image.textContent = (i/5) + 1;
+        // image.setAttribute("src", table[i+3]);
+        if (value["university_image"] != null) {
+          image.setAttribute("src", "../../public/image/" + value["university_image"]);
+        }
+        else {
+          image.alt = "画像未登録"
+        }
+        element.appendChild( image );
 
-          var name_date_area = document.createElement('div');
-          name_date_area.className = 'name_date_area';
-          var name = document.createElement('p');
-          var date = document.createElement('p');
-          name.className = 'name';
-          date.className = 'date';
-          name.textContent = value["user_name"] + " さん";
-          date.textContent = value["deadline"];
-          name_date_area.appendChild(name);
-          name_date_area.appendChild(date);
-          element.appendChild(name_date_area);
+        var name_date_area = document.createElement('div');
+        name_date_area.className = 'name_date_area';
+        var name = document.createElement('p');
+        var date = document.createElement('p');
+        name.className = 'name';
+        date.className = 'date';
+        name.textContent = value["user_name"] + " さん";
+        date.textContent = value["deadline"];
+        name_date_area.appendChild(name);
+        name_date_area.appendChild(date);
+        element.appendChild(name_date_area);
 
-          var symbol = document.createElement('div');
-          symbol.className = 'symbol';
-          symbol.textContent = value["university_name"];
-          element.appendChild(symbol);
+        var symbol = document.createElement('div');
+        symbol.className = 'symbol';
+        symbol.textContent = value["university_name"];
+        element.appendChild(symbol);
 
-          var comments = document.createElement('div');
-          comments.className = 'comments';
-          var event_name = document.createElement('p');
-          var event_content = document.createElement('p');
-          event_name.className = 'event_name';
-          event_content.className = 'event_content';
-          event_name.textContent = value["name"];
-          event_content.textContent = value["content"];
-          comments.appendChild(event_name);
-          comments.appendChild(event_content);
-          element.appendChild(comments);
+        var comments = document.createElement('div');
+        comments.className = 'comments';
+        var event_name = document.createElement('p');
+        var event_content = document.createElement('p');
+        event_name.className = 'event_name';
+        event_content.className = 'event_content';
+        event_name.textContent = value["name"];
+        event_content.textContent = value["content"];
+        comments.appendChild(event_name);
+        comments.appendChild(event_content);
+        element.appendChild(comments);
 
 
-          var object = new THREE.CSS3DObject( element );
+        var object = new THREE.CSS3DObject( element );
 
-          scene.add( object );
-          objects.push( object );
+        scene.add( object );
+        objects.push( object );
 
-          var object = new THREE.Object3D();
+        var object = new THREE.Object3D();
 
-          targets.table.push( object );
+        targets.table.push( object );
     });
 
     // helix
@@ -104,11 +105,14 @@
     }
     //console.log(objects.length);
 
+
+
     //
 
     renderer = new THREE.CSS3DRenderer();
     renderer.setSize( window.innerWidth, window.innerHeight );
     renderer.domElement.style.position = 'absolute';
+    renderer.domElement.style.height = '250px';
     renderer.className = "renderer";
     document.getElementById('container').appendChild(renderer.domElement);
 
@@ -175,30 +179,48 @@
   }
 
 
-  function onWindowResize() {
+  function transform2( targets,obj, duration ) {
 
+    TWEEN.removeAll();
+    var start_point = new THREE.Object3D();
+
+    for ( var i = 0; i < obj.length; i ++ ) {
+
+      var object = obj[ i ];
+      var target = targets[ i ];
+
+      new TWEEN.Tween( object.position )
+        .to( { x: target.position.x, y: target.position.y, z: target.position.z }, Math.random() * duration + duration )
+        .easing( TWEEN.Easing.Exponential.InOut )
+        .start();
+
+      new TWEEN.Tween( object.rotation )
+        .to( { x: target.rotation.x, y: target.rotation.y, z: target.rotation.z }, Math.random() * duration + duration )
+        .easing( TWEEN.Easing.Exponential.InOut )
+        .start();
+
+    }
+
+    new TWEEN.Tween( this )
+      .to( {}, duration * 2 )
+      .onUpdate( render )
+      .start();
+  }
+
+  function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
-
     renderer.setSize( window.innerWidth, window.innerHeight );
-
     render();
-
   }
 
   function animate() {
-
     requestAnimationFrame( animate );
-
     TWEEN.update();
-
     controls.update();
-
   }
 
-
   function render() {
-
     // console.log(camera.position);
     //camera.lookAt(new THREE.Vector3(0, 0, 0));
     //camera.position.y=0;
@@ -229,7 +251,7 @@
         animate();
         // $.each(data, function(arr_key, hash) {
         //   $.each(hash, function(hash_key, value) {
-            // console.log(hash_key + ": " + value);
+        // console.log(hash_key + ": " + value);
         //   });
         // });
       },
@@ -307,10 +329,14 @@
         var header = document.getElementById("header");
         var name = document.createElement('p');
         var img = document.createElement('img');
+        var logout = document.createElement('a');
         name.className = 'my-name';
         img.className = 'my-university-image';
+        logout.className = 'logout-link';
         img.setAttribute("src", "../../public/image/" + data["university_image"]);
         name.textContent = "こんにちは、" + data["name"] + "さん";
+        logout.textContent = "ログアウト";
+        logout.setAttribute("href", "https://dl.dropboxusercontent.com/u/54211252/campuspace/front/html/index.html?user_id=0");
         header.appendChild(img);
         header.appendChild(name);
       }, error: function() {
@@ -319,8 +345,43 @@
     });
   })();
 
+  $(function() {
+    $(".category").click(function() {
+      var filter_num = $(this).attr("id");
+      var categories = [];
+      var category_targets = [];
+      for(var i=0;i<objects.length;i++){
+        scene.remove(objects[i]);
+        console.log(objects[i].element.id);
+        if(objects[i].element.id==filter_num){
+          categories.push(objects[i]);
+        }
+      }
+      var angle = 2 * Math.PI/categories.length;
+      vector = new THREE.Vector3();
+
+      for(var i=0;i<categories.length;i++){
+        scene.add(categories[i]);
+        var object = new THREE.Object3D();
+
+        categories[i].position.x = 900 * Math.sin(i * angle);
+        categories[i].position.y = 0;
+        categories[i].position.z = 900 * Math.cos(i * angle);
+
+        vector.x = categories[i].position.x * 2;
+        vector.y = categories[i].position.y;
+        vector.z = categories[i].position.z * 2;
+
+        categories[i].lookAt( vector );
+        ategory_targets.push(object);
+      }
+      transform2(category_targets,categories,2000);
+      render();
+    });
+  });
+
   function all_universities() {
-    window.location = "./all_universities.html?user_id=" + user_id;
+    window.location = "./all_universities.html?id=" + user_id;
   }
 
   window.event_init = init;
@@ -348,3 +409,4 @@ $(document).ready(function(){
     close:'.closeBtn'
   });
 });
+

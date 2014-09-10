@@ -3,13 +3,28 @@ html, body {
 }
 
 body {
-  background-color: #000000;
+  background: -webkit-gradient(radial, center center, 10
+  , center center, 1044, from(#FFFFFF), to(#68550F));
   margin: 0;
+  border: 0px;
   font-family: Helvetica, sans-serif;
+  outline: 1px solid rgba(127,255,255,0.75);
   overflow: hidden;
 }
 
-a {
+
+a#univ1 {
+  background: #000000;
+  border-radius: 50%;
+
+}
+a#univ2 {
+  color: #ffffff;
+}
+a#univ3 {
+  color: #ffffff;
+}
+a#univ4 {
   color: #ffffff;
 }
 
@@ -33,18 +48,41 @@ a {
 }
 
 .element {
-  width: 810px;
+   width: 810px;
   height: 600px;
-  box-shadow: 0px 0px 12px rgba(0,255,255,0.5);
-  border: 1px solid rgba(127,255,255,0.25);
+  box-shadow: 0px 0px 140px rgba(2, 3, 3, 0.91);
+  /*border: 1px solid rgba(127,255,255,0.25);*/
   text-align: center;
   cursor: default;
+  top: 30%;
 }
 
 .element:hover {
   box-shadow: 0px 0px 12px rgba(0,255,255,0.75);
   border: 1px solid rgba(127,255,255,0.75);
 }
+
+#univ1.element{
+  background: -webkit-gradient(linear, left top, left bottom, 
+          from(rgb(21, 255, 44)), to(rgb(29, 145, 58))); 
+  -webkit-border-radius: 10px;
+}
+#univ2.element{
+  background: -webkit-gradient(linear, left top, left bottom, 
+              from(rgb(21, 53, 255)), to(rgb(185, 242, 255)));
+  -webkit-border-radius: 10px;
+}
+#univ3.element{
+  background: -webkit-gradient(linear, left top, left bottom, 
+              from(rgb(255, 21, 21)), to(rgb(255, 255, 255)));
+  -webkit-border-radius: 10px;
+}
+#univ4.element{
+  background: -webkit-gradient(linear, left top, left bottom,
+              from(rgb(255, 249, 21)), to(rgb(255, 255, 255)));
+  -webkit-border-radius: 10px;
+}
+
 
 
 .element .image {
@@ -66,19 +104,20 @@ a {
   right: 0px;
   font-size: 60px;
   font-weight: bold;
-  color: rgba(255,255,255,0.75);
   text-shadow: 0 0 10px rgba(0,255,255,0.95);
 }
 
 
 .element .name_date_area {
-  position: absolute;
-  top: 10%;
-  left: 40%;
-  font-size: 50px;
+    position: absolute;
+top: 7%;
+left: 40%;
+font-size: 50px;
   font-weight: bold;
   color: rgba(255,255,255,0.75);
   text-shadow: 0 0 10px rgba(0,255,255,0.95);
+  
+  font-family: 'Montserrat', sans-serif;
 }
 
 .element .name_date_area .name {
@@ -99,7 +138,7 @@ a {
   right: 20px;
   font-size: 20px;
   color: rgba(255,255,255,0.75);
-  text-shadow: 0 0 10px rgba(0,255,255,0.95);
+ 
   border-style:solid;
 }
 
@@ -151,14 +190,41 @@ font-size: 12px;
 color: rgba(127,255,255,0.75);
 }
  */
+.filter{
+    display: box;
+    display: -webkit-box;
+    display: -moz-box;
+    top: 75%;
+    left: 10%;
+    position: absolute;
+
+    /* 配置したボックスを左右中央寄せにする */
+    box-pack: center;
+    -webkit-box-pack: center;
+    -moz-box-pack: center;
+ }
+ .category{
+   height: 50px;
+   width: 50px;
+   position: relative;
+   text-align: center;
+   margin: 0 5px;
+   -webkit-border-radius: 300px;
+ }
+ .element #id{
+   color: red;
+ }
+
 
   button {
-    color: rgba(127,255,255,0.75);
-    background: transparent;
-    outline: 1px solid rgba(127,255,255,0.75);
-    border: 0px;
-    padding: 5px 10px;
+    background: -webkit-gradient(linear, left top, left bottom, 
+        from(rgb(237, 233, 218)), to(rgb(97, 96, 29))); 
+    -webkit-border-radius: 10px;
+    border: 3px #B9AAAA;
+    padding: 10px 15px;
     cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    color: white;
   }
   button:hover {
     background-color: rgba(0,255,255,0.5);

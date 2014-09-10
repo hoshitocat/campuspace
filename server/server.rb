@@ -28,7 +28,7 @@ post '/sign_up' do
   user = User.new
   mail = params["mail"]
   mail = mail.split("@")[1]
-  university_id = University.where(domain: mail)["id"]
+  university_id = University.where(domain: mail)[0]["id"]
 
   if params["image"]
     image_path = "../public/image/#{params["image"][:filename]}"

@@ -7,7 +7,6 @@
     <title>All_eventpage</title>
     <link rel="stylesheet" type="text/css" href="../css/eventpage_style.css" />
     <link href="https://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/starter-template.css" rel="stylesheet">
     <link href="../css/all_eventpage.css" rel="stylesheet">
     <script src="../js/ie-emulation-modes-warning.js"></script>
@@ -22,6 +21,15 @@
   <body>
     <div id="header">
     </div>
+
+    <div class="filter">
+      <img class="category" id="univ1" src="../img/play.jpg">
+      <img class="category" id="univ2" src="../img/sports.jpg">
+      <img class="category" id="univ3" src="../img/food.jpg">
+      <img class="category" id="univ4" src="../img/study.jpg">
+    </div>
+
+
     <div id="container"></div>
     <div id="menu">
       <button class="modalLink" href="#">Create Event</button>
@@ -53,8 +61,6 @@
         </form>
         <a href="#" class="closeBtn" style="text-align:right">Close</a>
       </div>
-
-      <button id="sphere">My page</button>
       <button id="helix" onclick="all_universities()">All universities</button>
     </div>
     <script src="../js/all_eventpage.js"></script>

@@ -1,6 +1,20 @@
 .my-university-image {
-  max-width: 3%;
+  max-width: 10%;
+  float:left;
 }
+.my-name {
+  margin-top: 0px;
+  margin-bottom: 40px;
+}
+.logout-link {
+  margin-left: 15px;
+}
+
 .container div {
   height: 220px !important;
 }
+
+.filter {
+  margin-left: 0 auto;
+}
+
